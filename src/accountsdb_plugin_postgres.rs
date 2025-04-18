@@ -255,8 +255,11 @@ impl GeyserPlugin for AccountsDbPluginPostgres {
     }
 
     fn update_slot_status(&self, slot: u64, parent: Option<u64>, status: &SlotStatus) -> Result<()> {
-        // info!("Updating slot {:?} at with status {:?}", slot, status);
+        Ok(())
+    }
 
+    fn notify_end_of_startup(&self) -> Result<()> {
+        info!("Notifying the end of startup for accounts notifications");
         // match &self.client {
         //     None => {
         //         return Err(GeyserPluginError::Custom(Box::new(
@@ -266,39 +269,15 @@ impl GeyserPlugin for AccountsDbPluginPostgres {
         //         )));
         //     }
         //     Some(client) => {
-        //         let result = client.update_slot_status(slot, parent, status);
+        //         let result = client.notify_end_of_startup();
 
         //         if let Err(err) = result {
         //             return Err(GeyserPluginError::SlotStatusUpdateError{
-        //                 msg: format!("Failed to persist the update of slot to the PostgreSQL database. Error: {:?}", err)
+        //                 msg: format!("Failed to notify the end of startup for accounts notifications. Error: {:?}", err)
         //             });
         //         }
         //     }
         // }
-
-        Ok(())
-    }
-
-    fn notify_end_of_startup(&self) -> Result<()> {
-        info!("Notifying the end of startup for accounts notifications");
-        match &self.client {
-            None => {
-                return Err(GeyserPluginError::Custom(Box::new(
-                    AccountsDbPluginPostgresError::DataStoreConnectionError {
-                        msg: "There is no connection to the PostgreSQL database.".to_string(),
-                    },
-                )));
-            }
-            Some(client) => {
-                let result = client.notify_end_of_startup();
-
-                if let Err(err) = result {
-                    return Err(GeyserPluginError::SlotStatusUpdateError{
-                        msg: format!("Failed to notify the end of startup for accounts notifications. Error: {:?}", err)
-                    });
-                }
-            }
-        }
         Ok(())
     }
 
@@ -307,72 +286,11 @@ impl GeyserPlugin for AccountsDbPluginPostgres {
         transaction_info: ReplicaTransactionInfoVersions,
         slot: u64,
     ) -> Result<()> {
-        match &self.client {
-            None => {
-                return Err(GeyserPluginError::Custom(Box::new(
-                    AccountsDbPluginPostgresError::DataStoreConnectionError {
-                        msg: "There is no connection to the PostgreSQL database.".to_string(),
-                    },
-                )));
-            }
-            Some(client) => match transaction_info {
-                ReplicaTransactionInfoVersions::V0_0_1(_transaction_info) => {
-                    return Err(GeyserPluginError::SlotStatusUpdateError {
-                        msg: format!("Wrong ReplicaTransactionInfoVersions version: V0_0_1."),
-                    });
-                }
-                ReplicaTransactionInfoVersions::V0_0_2(transaction_info) => {
-                    if let Some(transaction_selector) = &self.transaction_selector {
-                        if !transaction_selector.is_transaction_selected(
-                            transaction_info.is_vote,
-                            Box::new(transaction_info.transaction.message().account_keys().iter()),
-                        ) {
-                            return Ok(());
-                        }
-                    } else {
-                        return Ok(());
-                    }
-
-                    let result = client.log_transaction_info(transaction_info, slot);
-
-                    if let Err(err) = result {
-                        return Err(GeyserPluginError::SlotStatusUpdateError{
-                                msg: format!("Failed to persist the transaction info to the PostgreSQL database. Error: {:?}", err)
-                            });
-                    }
-                }
-            },
-        }
 
         Ok(())
     }
 
     fn notify_block_metadata(&self, block_info: ReplicaBlockInfoVersions) -> Result<()> {
-        match &self.client {
-            None => {
-                return Err(GeyserPluginError::Custom(Box::new(
-                    AccountsDbPluginPostgresError::DataStoreConnectionError {
-                        msg: "There is no connection to the PostgreSQL database.".to_string(),
-                    },
-                )));
-            }
-            Some(client) => match block_info {
-                ReplicaBlockInfoVersions::V0_0_4(block_info) => {
-                    let result = client.update_block_metadata(block_info);
-
-                    if let Err(err) = result {
-                        return Err(GeyserPluginError::SlotStatusUpdateError{
-                                msg: format!("Failed to persist the update of block metadata to the PostgreSQL database. Error: {:?}", err)
-                            });
-                    }
-                }
-                _ => {
-                    return Err(GeyserPluginError::SlotStatusUpdateError{
-                        msg: format!("Failed to persist the update of block metadata to the PostgreSQL database. Error: {:?}", "Unsupported version")
-                    });
-                }
-            },
-        }
 
         Ok(())
     }
@@ -388,9 +306,7 @@ impl GeyserPlugin for AccountsDbPluginPostgres {
 
     /// Check if the plugin is interested in transaction data
     fn transaction_notifications_enabled(&self) -> bool {
-        self.transaction_selector
-            .as_ref()
-            .map_or_else(|| false, |selector| selector.is_enabled())
+        false
     }
 }
 
