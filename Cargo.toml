@@ -3,7 +3,7 @@ authors = ["Solana Maintainers <maintainers@solana.foundation>"]
 edition = "2021"
 name = "solana-accountsdb-plugin-postgres"
 description = "The Solana AccountsDb plugin for PostgreSQL database."
-version = "2.0.10"
+version = "2.1.20"
 repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://solana.com/"
@@ -13,7 +13,7 @@ documentation = "https://docs.rs/solana-validator"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-agave-geyser-plugin-interface = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
+agave-geyser-plugin-interface = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
 bs58 = "0.4.0"
 chrono = { version = "0.4.11", features = ["serde"] }
 crossbeam-channel = "0.5"
@@ -25,16 +25,16 @@ postgres-openssl = { version = "0.5.0"}
 serde = "1.0.133"
 serde_derive = "1.0.103"
 serde_json = "1.0.74"
-solana-account-decoder = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
+solana-account-decoder = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
 
-solana-logger = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-measure = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-metrics = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-runtime = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-program = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-zk-token-sdk = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"} 
-solana-sdk = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-transaction-status = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
+solana-logger = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-measure = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-metrics = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-runtime = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-program = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-zk-token-sdk = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"} 
+solana-sdk = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-transaction-status = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
 
 
 thiserror = "1.0.64"
@@ -44,12 +44,12 @@ tokio-postgres = "0.7.12"
 libc = "0.2.112"
 libloading = "0.7.2"
 serial_test = "0.5.1"
-solana-account-decoder = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-core = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-local-cluster = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-net-utils = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-rpc = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-streamer= {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
+solana-account-decoder = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-core = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-local-cluster = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-net-utils = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-rpc = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-streamer= {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
 tempfile = "3.13.0"
 
 [package.metadata.docs.rs]
@@ -59,7 +59,7 @@ targets = ["x86_64-unknown-linux-gnu"]
 [patch.crates-io]
 curve25519-dalek = { git = "https://github.com/anza-xyz/curve25519-dalek.git", rev = "b500cdc2a920cd5bff9e2dd974d7b97349d61464" }
 
-solana-curve25519 = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-program = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-zk-sdk = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
-solana-zk-token-sdk = {git = "https://github.com/lijunwangs/solana.git", rev = "c8d9016ec8dde1d3f31b5aeb28692b358d57b1a5"}
+solana-curve25519 = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-program = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-zk-sdk = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}
+solana-zk-token-sdk = {git = "https://github.com/anza-xyz/agave.git", rev = "89985de3c6a8643f90af5dcb14bed23382bee088"}

@@ -254,27 +254,27 @@ impl GeyserPlugin for AccountsDbPluginPostgres {
         Ok(())
     }
 
-    fn update_slot_status(&self, slot: u64, parent: Option<u64>, status: SlotStatus) -> Result<()> {
-        info!("Updating slot {:?} at with status {:?}", slot, status);
+    fn update_slot_status(&self, slot: u64, parent: Option<u64>, status: &SlotStatus) -> Result<()> {
+        // info!("Updating slot {:?} at with status {:?}", slot, status);
 
-        match &self.client {
-            None => {
-                return Err(GeyserPluginError::Custom(Box::new(
-                    AccountsDbPluginPostgresError::DataStoreConnectionError {
-                        msg: "There is no connection to the PostgreSQL database.".to_string(),
-                    },
-                )));
-            }
-            Some(client) => {
-                let result = client.update_slot_status(slot, parent, status);
+        // match &self.client {
+        //     None => {
+        //         return Err(GeyserPluginError::Custom(Box::new(
+        //             AccountsDbPluginPostgresError::DataStoreConnectionError {
+        //                 msg: "There is no connection to the PostgreSQL database.".to_string(),
+        //             },
+        //         )));
+        //     }
+        //     Some(client) => {
+        //         let result = client.update_slot_status(slot, parent, status);
 
-                if let Err(err) = result {
-                    return Err(GeyserPluginError::SlotStatusUpdateError{
-                        msg: format!("Failed to persist the update of slot to the PostgreSQL database. Error: {:?}", err)
-                    });
-                }
-            }
-        }
+        //         if let Err(err) = result {
+        //             return Err(GeyserPluginError::SlotStatusUpdateError{
+        //                 msg: format!("Failed to persist the update of slot to the PostgreSQL database. Error: {:?}", err)
+        //             });
+        //         }
+        //     }
+        // }
 
         Ok(())
     }
